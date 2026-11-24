@@ -17,21 +17,35 @@
 
 ## Установка
 
-Все команды — от root (или через `sudo`).
+Все команды — от root (или через `sudo`), по одной.
 
-1. Скачать архив `crm-bot-linux.tar.gz` из последнего выпуска (Releases этого репозитория) и распаковать:
+1. Часовой пояс (по нему робот считает рабочее время):
+   ```
+   timedatectl set-timezone Asia/Almaty
+   ```
+2. Скачать и распаковать последнюю версию:
+   ```
+   apt update && apt install -y curl
+   ```
+   ```
+   cd /root && curl -LO https://github.com/asia-servis-crm/crm-bot/releases/latest/download/crm-bot-linux.tar.gz
+   ```
    ```
    tar xzf crm-bot-linux.tar.gz
    ```
-2. Запустить установку (ставит `chromium`, `python3-venv`, создаёт пользователя `crm-bot`,
-   службу `crm-bot` и команду `crm-bot`):
+   Запустить установку (ставит `chromium`, `python3-venv`, создаёт пользователя `crm-bot`,
+   службу `crm-bot` и команду `crm-bot`; 2–5 минут):
    ```
    cd crm-bot-*/ && ./install.sh
    ```
 3. Настройки (пароль и токен вводятся скрыто):
    ```
    crm-bot login ЛОГИН_1С
+   ```
+   ```
    crm-bot password
+   ```
+   ```
    crm-bot token
    ```
    Если в 1С входят без пароля — в `crm-bot password` просто нажать Enter и ответить «да».
@@ -46,6 +60,8 @@
 6. Первый админ: человек пишет боту в Telegram (любое сообщение), затем на сервере:
    ```
    crm-bot users
+   ```
+   ```
    crm-bot admin add ID
    ```
    Админ, добавленный командой, — **защищённый**: из Telegram его не снять и не заблокировать.
