@@ -23,21 +23,22 @@
    ```
    timedatectl set-timezone Asia/Almaty
    ```
-2. Скачать и распаковать последнюю версию:
+2. Скачать и распаковать последнюю версию (первая команда убирает остатки прошлой распаковки):
    ```
-   apt update && apt install -y curl
+   cd /root && rm -rf crm-bot crm-bot-linux.tar.gz
    ```
    ```
-   cd /root && curl -LO https://github.com/asia-servis-crm/crm-bot/releases/latest/download/crm-bot-linux.tar.gz
+   curl -LO https://github.com/asia-servis-crm/crm-bot/releases/latest/download/crm-bot-linux.tar.gz
    ```
    ```
    tar xzf crm-bot-linux.tar.gz
    ```
    Запустить установку (ставит `chromium`, `python3-venv`, создаёт пользователя `crm-bot`,
-   службу `crm-bot` и команду `crm-bot`; 2–5 минут):
+   службу `crm-bot` и команду `crm-bot`; 2–5 минут). При повторной установке данные сохраняются:
    ```
-   cd crm-bot-*/ && ./install.sh
+   cd /root/crm-bot && ./install.sh
    ```
+   Если `curl` нет: `apt update && apt install -y curl`.
 3. Настройки — каждая команда сама спросит значение. Логин виден при вводе; пароль и токен
    вводятся скрыто (на экране ничего не появляется — это нормально) и не остаются в истории команд:
    ```
@@ -113,7 +114,7 @@
 crm-bot rollback
 ```
 Изменения в службе или в команде `crm-bot` (бывает редко, об этом будет сказано в описании выпуска)
-ставятся только переустановкой: скачать архив и снова `./install.sh` — данные сохраняются.
+ставятся только переустановкой — шаг 2 из «Установки» (данные сохраняются).
 
 ## Где что лежит
 
@@ -121,7 +122,7 @@ crm-bot rollback
 | --- | --- |
 | `/opt/crm-bot/app` | программа (`app.old` — предыдущая версия) |
 | `/opt/crm-bot/venv` | Python и Playwright |
-| `/var/lib/crm-bot` | данные: `settings.json` (настройки, права 600), `users.json` (люди), `state.json` (служебное), `last_error.png` (снимок 1С при последней ошибке) |
+| `/var/lib/crm-bot` | данные: `settings.json` (настройки, права 600), `users.json` (люди), `state.json` (служебное), `alive.txt`, `last_error.png` (снимок 1С при последней ошибке) |
 | `/etc/systemd/system/crm-bot.service` | служба |
 | `/usr/local/bin/crm-bot` | команда |
 
